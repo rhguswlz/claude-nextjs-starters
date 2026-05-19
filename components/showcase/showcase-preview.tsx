@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 interface ShowcasePreviewProps {
   label?: string;
   children: React.ReactNode;
@@ -10,7 +12,7 @@ export function ShowcasePreview({
   className,
 }: ShowcasePreviewProps) {
   return (
-    <div className={`border rounded-lg overflow-hidden ${className || ""}`}>
+    <div className={cn("border rounded-lg overflow-hidden", className)}>
       {label && (
         <div className="px-4 py-2 bg-muted border-b text-sm font-medium">
           {label}

@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 
 interface ShowcaseSectionProps {
@@ -14,7 +15,7 @@ export function ShowcaseSection({
   className,
 }: ShowcaseSectionProps) {
   return (
-    <section className={`space-y-4 ${className || ""}`}>
+    <section className={cn("space-y-4", className)}>
       <div>
         <h3 className="text-lg font-semibold">{title}</h3>
         {description && (

@@ -132,14 +132,12 @@ export const SITE_CONFIG = {
 ```json
 {
   "paths": {
-    "@/*": ["./*"],
-    "@/components": ["./components"],
-    "@/lib": ["./lib"],
-    "@/hooks": ["./hooks"],
-    "@/types": ["./types"]
+    "@/*": ["./*"]
   }
 }
 ```
+
+`@/*` 단일 alias로 모든 경로를 처리합니다. 예: `@/components`, `@/lib`, `@/hooks`, `@/types`
 
 ### shadcn/ui 설정 (`components.json`)
 - **Style:** Radix Nova

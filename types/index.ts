@@ -4,8 +4,10 @@ export type NavItem = {
   external?: boolean;
 };
 
+export type FeatureIconName = "Zap" | "Palette" | "Shield" | "Moon" | "Smartphone" | "Code2";
+
 export type FeatureItem = {
-  icon: string;
+  icon: FeatureIconName;
   title: string;
   description: string;
 };
@@ -20,4 +22,5 @@ export type SiteConfig = {
   name: string;
   description: string;
   url: string;
+  githubUrl: string;
 };

@@ -9,6 +9,7 @@ interface NavLinkProps {
   children: React.ReactNode;
   className?: string;
   exact?: boolean;
+  external?: boolean;
   onClick?: () => void;
 }
 
@@ -17,21 +18,39 @@ export function NavLink({
   children,
   className,
   exact = false,
+  external = false,
   onClick,
 }: NavLinkProps) {
   const pathname = usePathname();
   const isActive = exact ? pathname === href : pathname.startsWith(href);
   const isHashLink = href.startsWith("#");
 
+  const baseClassName = cn(
+    "text-sm font-medium transition-colors hover:text-foreground",
+    isHashLink || external ? "text-muted-foreground" : isActive ? "text-foreground" : "text-muted-foreground",
+    className
+  );
+
   if (isHashLink) {
     return (
       <a
         href={href}
         onClick={onClick}
-        className={cn(
-          "text-sm font-medium transition-colors hover:text-foreground text-muted-foreground",
-          className
-        )}
+        className={baseClassName}
+      >
+        {children}
+      </a>
+    );
+  }
+
+  if (external) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={onClick}
+        className={baseClassName}
       >
         {children}
       </a>
@@ -42,11 +61,7 @@ export function NavLink({
     <Link
       href={href}
       onClick={onClick}
-      className={cn(
-        "text-sm font-medium transition-colors hover:text-foreground",
-        isActive ? "text-foreground" : "text-muted-foreground",
-        className
-      )}
+      className={baseClassName}
     >
       {children}
     </Link>

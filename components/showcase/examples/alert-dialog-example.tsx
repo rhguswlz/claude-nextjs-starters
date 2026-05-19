@@ -68,7 +68,7 @@ export function AlertDialogWithMedia() {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogMedia>
-            <Trash2 className="w-6 h-6 text-destructive" />
+            <Trash2 className="size-6 text-destructive" />
           </AlertDialogMedia>
           <AlertDialogTitle>항목을 삭제하시겠습니까?</AlertDialogTitle>
           <AlertDialogDescription>

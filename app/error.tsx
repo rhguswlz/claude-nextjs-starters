@@ -11,6 +11,7 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
+    // 프로덕션 환경에서는 Sentry, LogRocket 등 에러 모니터링 서비스로 교체 권장
     console.error(error);
   }, [error]);
 

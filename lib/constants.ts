@@ -4,7 +4,8 @@ export const SITE_CONFIG: SiteConfig = {
   name: "스타터킷",
   description:
     "Next.js 16, TypeScript, Tailwind CSS v4, shadcn/ui v4로 만든 모던 웹 스타터킷",
-  url: "https://example.com",
+  url: "https://nextjs-starter.example.com",
+  githubUrl: "https://github.com/anthropics/claude-nextjs-starters",
 };
 
 export const NAV_ITEMS: NavItem[] = [

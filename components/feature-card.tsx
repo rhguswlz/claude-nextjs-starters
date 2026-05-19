@@ -28,7 +28,7 @@ export function FeatureCard({ icon, title, description }: FeatureItem) {
       <CardHeader className="pb-2">
         <div className="flex items-center gap-3">
           <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10">
-            <Icon className="size-5 text-primary" />
+            <Icon className="size-6 text-primary" />
           </div>
           <h3 className="font-semibold">{title}</h3>
         </div>
