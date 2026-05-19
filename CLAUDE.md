@@ -4,9 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Next.js 15 starter project featuring a modern landing page with shadcn/ui components. The project uses React 19, TypeScript, and Tailwind CSS v4.
-
-**Key limitation:** Next.js 16.x has breaking changes from your training data. Always check `node_modules/next/dist/docs/` before writing new code. See AGENTS.md for details.
+This is a Next.js 16.2.6 starter project featuring a modern landing page with shadcn/ui components. The project uses React 19, TypeScript, and Tailwind CSS v4. **Next.js 16 has breaking changes from training data** — always check the Next.js docs in `node_modules/next/dist/docs/` before writing new code.
 
 ## Development Commands
 
@@ -27,89 +25,130 @@ npm run lint
 ## Project Structure
 
 ```
-├── app/                    # App Router 디렉토리
-│   ├── components/         # shadcn/ui 컴포넌트들 (설치된 컴포넌트)
-│   ├── layout.tsx          # 루트 레이아웃 (Header, Footer 포함)
+├── app/                    # App Router (Next.js 16)
+│   ├── components/         # shadcn/ui 설치 컴포넌트
+│   ├── layout.tsx          # 루트 레이아웃
 │   ├── page.tsx            # 홈 페이지
-│   ├── globals.css         # Tailwind 및 전역 스타일
+│   ├── globals.css         # Tailwind 글로벌 스타일
 │   ├── error.tsx           # 에러 바운더리
 │   ├── loading.tsx         # 로딩 UI
 │   └── not-found.tsx       # 404 페이지
-├── components/             # 커스텀 React 컴포넌트
-│   ├── layout/             # Header, Footer 등 레이아웃 컴포넌트
+├── components/             # 커스텀 컴포넌트
+│   ├── layout/             # Header, Footer
 │   ├── sections/           # 페이지 섹션 (Hero, Features, Stats, CTA)
-│   ├── showcase/           # 컴포넌트 쇼케이스
-│   └── ui/                 # shadcn/ui 컴포넌트 래퍼 및 커스텀 UI
-├── lib/                    # 유틸리티 및 헬퍼
-│   ├── utils.ts            # 범용 유틸리티 함수
-│   ├── constants.ts        # SITE_CONFIG, 네비게이션, 피처 데이터
-│   ├── component-showcase.ts  # 쇼케이스 컴포넌트 목록
-│   └── validations.ts      # Zod 스키마
-├── hooks/                  # 커스텀 React 훅
-│   └── use-mobile.ts       # 모바일 브레이크포인트 훅
-├── types/                  # TypeScript 타입 정의
+│   ├── showcase/           # 컴포넌트 데모
+│   └── ui/                 # shadcn/ui 래퍼 및 커스텀 UI
+├── lib/                    # 유틸리티 & 설정
+│   ├── utils.ts            # cn() 함수 등 헬퍼
+│   ├── constants.ts        # SITE_CONFIG, 네비게이션 데이터
+│   ├── validations.ts      # Zod 스키마
+│   └── component-showcase.ts  # 컴포넌트 데모 목록
+├── hooks/                  # 커스텀 훅
+│   └── use-mobile.ts       # 반응형 브레이크포인트 감지
+├── types/                  # 공통 타입 정의
 │   └── index.ts            # NavItem, FeatureItem, StatItem, SiteConfig
-├── public/                 # 정적 파일
-├── components.json         # shadcn/ui 설정
-├── tsconfig.json           # TypeScript 설정 (@/* alias)
-├── next.config.ts          # Next.js 설정
-└── eslint.config.mjs       # ESLint 설정 (Next.js 코어 웹 바이탈)
+└── public/                 # 정적 파일
 ```
 
 ## Key Technologies
 
-- **Next.js 15.x** (App Router)
-- **React 19**
+- **Next.js 16.2.6** (App Router, Server Components 기본)
+- **React 19** (예: `use()`, 향상된 hooks)
 - **TypeScript 5**
-- **Tailwind CSS 4** (with @tailwindcss/postcss)
-- **shadcn/ui** (Radix Nova style, with CSS variables)
+- **Tailwind CSS 4** (@tailwindcss/postcss로 PostCSS 통합)
+- **shadcn/ui** (Radix Nova style, CSS variables)
 - **React Hook Form 7** + **Zod 4** (폼 검증)
-- **next-themes** (다크모드 지원)
+- **next-themes** (라이트/다크모드)
 - **Lucide React** (아이콘)
 
-## Code Style & Conventions
+## Code Style & Patterns
 
 - **Indentation:** 2 spaces
 - **Function/Variable names:** camelCase (English)
 - **Component names:** PascalCase
-- **File structure:** 레이어드 아키텍처 (컴포넌트 → 훅 → 유틸 → 서비스)
+- **Styling:** Tailwind + `cn()` 함수 (lib/utils.ts)로 클래스 병합
 
-### 컴포넌트 작성 가이드
+### Component 작성 패턴
 
-1. **shadcn/ui 컴포넌트 사용:** `app/components/`의 설치된 컴포넌트들 활용
-2. **타입 정의:** `types/index.ts`에서 공통 타입 참조
-3. **스타일링:** Tailwind CSS + `lib/utils.ts`의 `cn()` 함수로 클래스 병합
-4. **폼 검증:** React Hook Form + Zod 패턴 사용
+1. **shadcn/ui 컴포넌트:** `app/components/`의 설치 컴포넌트 import
+   ```tsx
+   import { Button } from "@/app/components/ui/button"
+   ```
+
+2. **타입 정의:** `types/index.ts` 참조
+   ```tsx
+   import type { NavItem } from "@/types"
+   ```
+
+3. **폼 검증:** React Hook Form + Zod
+   ```tsx
+   const form = useForm<z.infer<typeof FormSchema>>({
+     resolver: zodResolver(FormSchema),
+   })
+   ```
+
+4. **동적 클래스:** Tailwind와 cn() 함수 조합
+   ```tsx
+   className={cn("base-class", isActive && "active-class")}
+   ```
+
+### 다크모드 (next-themes)
+
+`app/layout.tsx`에서 `ThemeProvider` 래핑됨. 클라이언트 컴포넌트에서 `useTheme()` 훅 사용:
+```tsx
+const { theme, setTheme } = useTheme()
+```
 
 ### 라우팅
 
-- App Router 기반 (`app/` 디렉토리)
-- 동적 경로: `app/[slug]/page.tsx`
-- API 라우트: `app/api/[route]/route.ts`
+- **페이지:** `app/[segment]/page.tsx`
+- **동적 경로:** `app/[slug]/page.tsx` (getStaticProps 대신 `generateStaticParams()`)
+- **API 라우트:** `app/api/[route]/route.ts` (Next.js 13+ 형식)
+- **레이아웃 공유:** `app/[segment]/layout.tsx`
 
-## Configuration Details
+### Next.js 16 주의사항
 
-### shadcn/ui
+1. **Server Components 기본값** — 컴포넌트는 서버 컴포넌트이며, `"use client"` 지시문으로 클라이언트 컴포넌트 지정
+2. **Dynamic Imports** — `next/dynamic` 및 `dynamic()` 사용
+3. **Image Component** — `next/image`의 `Image` 컴포넌트로 자동 최적화
+4. **Font Loading** — `next/font` (예: `localFont`, `google`)
+5. **메타데이터 API** — `layout.tsx`에서 `generateMetadata()` 또는 `metadata` 객체 내보내기
+6. **Streaming & Suspense** — `React.Suspense`로 점진적 렌더링
+
+상세한 API 변경사항은 `node_modules/next/dist/docs/` 참고.
+
+## Configuration
+
+### Site Metadata (`lib/constants.ts`)
+```typescript
+export const SITE_CONFIG = {
+  name: "Site Name",
+  description: "...",
+  url: "https://...",
+}
+```
+
+### TypeScript Aliases (`tsconfig.json`)
+```json
+{
+  "paths": {
+    "@/*": ["./*"],
+    "@/components": ["./components"],
+    "@/lib": ["./lib"],
+    "@/hooks": ["./hooks"],
+    "@/types": ["./types"]
+  }
+}
+```
+
+### shadcn/ui 설정 (`components.json`)
 - **Style:** Radix Nova
-- **Icon Library:** Lucide
-- **CSS Variables:** 활성화 (Tailwind theme에서 색상 지정)
 - **Base Color:** Neutral
-
-### Aliases (tsconfig.json)
-```
-@/* → ./*
-@/components → ./components
-@/lib → ./lib
-@/hooks → ./hooks
-@/utils → ./lib/utils
-```
+- **CSS Variables:** 활성화
 
 ## Important Notes
 
-- **Next.js 16 Breaking Changes:** 학습 데이터와 다를 수 있습니다. 코드 작성 전에 `node_modules/next/dist/docs/`를 확인하세요.
-- **Language:** 모든 문서, 주석, 커밋 메시지는 한국어로 작성합니다.
-- **사이트 메타데이터:** `lib/constants.ts`의 `SITE_CONFIG`에서 관리
-
-## Related Documentation
-
-- See AGENTS.md for Next.js version-specific guidance
+- **Language:** 모든 코드 주석, 커밋 메시지, 문서는 한국어로 작성합니다.
+- **Next.js 16 Breaking Changes:** 학습 데이터와 다를 수 있으므로 필요시 `node_modules/next/dist/docs/` 확인
+- **Component Library:** shadcn/ui 컴포넌트를 활용해 새 컴포넌트 구성
+- **Type Safety:** `types/index.ts`에 공통 타입 정의하여 재사용성 확보
