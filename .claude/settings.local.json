@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npx shadcn@latest add *)",
+      "Bash(mkdir -p *)",
+      "Bash(npm run *)",
+      "Write",
+      "Edit",
+      "Skill(update-config)",
+      "Skill(update-config:*)",
+      "mcp__playwright",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(npx tsc *)",
+      "Bash(grep -n '`.*\\\\${' /Users/kohhyunji/claude_workspace/claude-nextjs-starters/components/showcase/component-sidebar.tsx)",
+      "Bash(grep -n '`.*\\\\${' /Users/kohhyunji/claude_workspace/claude-nextjs-starters/components/showcase/showcase-preview.tsx)",
+      "Bash(grep -n '`.*\\\\${' /Users/kohhyunji/claude_workspace/claude-nextjs-starters/components/showcase/showcase-section.tsx)",
+      "Bash(grep -E \"\\\\.\\(tsx|ts\\)$\")",
+      "Bash(rm /Users/kohhyunji/claude_workspace/claude-nextjs-starters/app/components/checkbox/index.tsx)",
+      "Bash(rmdir /Users/kohhyunji/claude_workspace/claude-nextjs-starters/app/components/checkbox)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(pkill *)",
+      "Bash(git checkout *)"
+    ],
+    "additionalDirectories": [
+      "/Users/kohhyunji/.claude",
+      "/Users/kohhyunji/claude_workspace/claude-nextjs-starters"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "playwright"
+  ]
+}
