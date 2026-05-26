@@ -21,7 +21,9 @@
       "Bash(rmdir /Users/kohhyunji/claude_workspace/claude-nextjs-starters/app/components/checkbox)",
       "Bash(curl -s http://localhost:3000)",
       "Bash(pkill *)",
-      "Bash(git checkout *)"
+      "Bash(git checkout *)",
+      "mcp__sequential-thinking",
+      "Skill(git:commit)"
     ],
     "additionalDirectories": [
       "/Users/kohhyunji/.claude",
